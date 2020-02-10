@@ -24,7 +24,7 @@ class Swiped(models.Model):
     def swipe(cls, uid, sid, stype):
         '''执行一次滑动'''
         try:
-            return cls.objects.create(uid=uid, sid=sid, stype='like')
+            return cls.objects.create(uid=uid, sid=sid, stype=stype)
         except IntegrityError:
             # 不允许重复滑动某人
             raise stat.RepeatSwipeErr
