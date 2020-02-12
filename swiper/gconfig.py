@@ -6,7 +6,7 @@ bind = ["127.0.0.1:9000"]  # 线上环境不会开启在公网 IP 下，一般�
 daemon = True  # 是否开启守护进程模式
 pidfile = 'logs/gunicorn.pid'
 
-workers = cpu_count() * 2 # 工作进程数量
+workers = 4 # cpu_count() * 2 # 工作进程数量
 # worker_class = "gevent"  # 指定一个异步处理的库
 worker_class = "egg:meinheld#gunicorn_worker"  # 比 gevent 更快的一个异步网络库
 worker_connections = 65535  # 单个进程的最大连接数
