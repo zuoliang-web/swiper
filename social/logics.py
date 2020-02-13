@@ -173,7 +173,7 @@ def get_top_n(num):
     '''获取积分排行最高的前 N 个用户'''
     # 取出原始榜单数据
     rank_data = rds.zrevrange(keys.RANK_K, 0, num - 1, withscores=True)
-    cleaned_rank = [[int(uid), int(score)]  for uid, score in rank_data]  # 对原始数据进行简单清洗
+    cleaned_rank = [[int(uid), int(score)] for uid, score in rank_data]  # 对原始数据进行简单清洗
 
     # 取出所有的用户数据
     uid_list = [uid for uid, _ in cleaned_rank]  # 取出每个用户 UID
