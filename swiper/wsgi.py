@@ -11,6 +11,9 @@ import os
 
 from django.core.wsgi import get_wsgi_application
 
-os.environ.setdefault("DJANGO_SETTINGS_MODULE", "swiper.settings")
+if "SWIPER_DOCKER" in os.environ:
+    os.environ.setdefault("DJANGO_SETTINGS_MODULE", "swiper.settings_docker")
+else:
+    os.environ.setdefault("DJANGO_SETTINGS_MODULE", "swiper.settings")
 
 application = get_wsgi_application()

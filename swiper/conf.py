@@ -1,4 +1,5 @@
 '''程序逻辑和第三方平台的配置'''
+import os
 
 SWIPE_SCORE = {
     'like': 5,
@@ -9,7 +10,7 @@ SWIPE_SCORE = {
 
 # Redis 配置
 REDIS = {
-    'host': 'localhost',
+    'host': '172.18.0.20' if 'SWIPER_DOCKER' in os.environ else 'localhost',
     'port': 6379,
     'db': 6,
 }
