@@ -7,6 +7,7 @@ import requests
 
 from swiper import conf
 from common import keys
+from common import stat
 from user.models import User
 from libs.cache import rds
 from libs.qncloud import upload_to_qn
@@ -73,3 +74,35 @@ def save_avatar(uid, avatar_file):
 
     # 4. 删除本地的临时文件
     os.remove(filepath)
+
+
+def get_wb_access_token(grant_code):
+    '''获取微博的 Access Token'''
+    # 构造参数
+    args = {
+        'client_id': conf.WB_APP_KEY,
+        'client_secret': conf.WB_APP_SECRET,
+        'grant_type': 'authorization_code',
+        'code': grant_code,
+        'redirect_uri': conf.WB_CALLBACK,
+    }
+    # 向微博平台请求接口
+    response = requests.post(conf.WB_ACCESS_TOKEN_API, data=args)
+    if response.status_code == 200:
+        return response.json()
+    else:
+        raise stat.WeiBoAuthErr
+
+
+def get_wb_user_info(access_token, uid):
+    # 构造参数
+    args = {
+        'access_token': access_token,
+        'uid': uid
+    }
+    # 调用微博接口，获取用户信息
+    response = requests.get(conf.WB_USERS_SHOW, params=args)
+    if response.status_code == 200:
+        return response.json()
+    else:
+        raise stat.WeiBoUserAPIErr

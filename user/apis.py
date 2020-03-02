@@ -1,5 +1,9 @@
 import logging
+from urllib.parse import urlencode
 
+from django.shortcuts import render
+
+from swiper import conf
 from libs.cache import rds
 from libs.http import render_json
 from user.models import User
@@ -87,3 +91,37 @@ def upload_avatar(request):
     avatar_file = request.FILES.get('avatar')
     logics.save_avatar.delay(request.uid, avatar_file)
     return render_json()
+
+
+def home(request):
+    '''将用户引导到授权页'''
+    args = {'client_id': conf.WB_APP_KEY, 'redirect_uri': conf.WB_CALLBACK}
+    query_string = urlencode(args)
+    auth_url = f'{conf.WB_AUTH_API}?{query_string}'
+    return render(request, 'test.html', {"auth_url": auth_url})
+
+
+def weibo_callback(request):
+    '''微博回调接口'''
+    # 获得微博授权，并且获取微博用户数据
+    code = request.GET.get('code')  # 提取微博回调接口的授权码
+    result = logics.get_wb_access_token(code)  # 获取 Access Token
+    wb_user = logics.get_wb_user_info(result['access_token'], result['uid'])
+
+    # 将微博数据记录到 Swiper 数据库中
+    phonenum = 'WB-%s' % wb_user['id']
+    user_info = {
+        'nickname': wb_user['screen_name'],
+        'gender': 'female' if wb_user['gender'] == 'f' else 'male',
+        'avatar': wb_user['avatar_hd'],
+        'location': wb_user['location'].split()[0],
+    }
+    user, created = User.objects.update_or_create(phonenum=phonenum, defaults=user_info)
+    if created:
+        inf_log.info(f'User({user.id}:{user.nickname}) register from Weibo')
+    else:
+        inf_log.info(f'User({user.id}:{user.nickname}) login from Weibo')
+
+    # 记录用户登陆状态
+    request.session['uid'] = user.id
+    return render_json(user.to_dict())

@@ -26,3 +26,5 @@ AreadyFriends = gen_logic_err('AreadyFriends', 1006)    # 两者已经是好友�
 RewindLimited = gen_logic_err('RewindLimited', 1007)    # 当天反悔次数达到上限
 RewindTimeout = gen_logic_err('RewindTimeout', 1008)    # 反悔超时
 PermRequired = gen_logic_err('PermRequired', 1009)      # 缺少某种权限
+WeiBoAuthErr = gen_logic_err('WeiBoAuthErr', 1010)      # 微博授权接口错误
+WeiBoUserAPIErr = gen_logic_err('WeiBoUserAPIErr', 1011)  # 微博获取用户信息时发生错误

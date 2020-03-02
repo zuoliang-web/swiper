@@ -33,3 +33,12 @@ QN_ACCESSKEY = "kEM0sRR-meB92XU43_a6xZqhiyyTuu5yreGCbFtw"
 QN_SECRETKEY = "QxTKqgnOb_UVldphU261qu9IdzmjkgGHh6GQVPPy"
 QN_BUCKET = 'sh1906'
 QN_BASE_URL = 'http://q3oh1b1oq.bkt.clouddn.com'
+
+
+# 微博登陆配置
+WB_APP_KEY = "415847342"
+WB_APP_SECRET = "25bb6f5efd2f2d69177095562f031e3b"
+WB_CALLBACK = "http://127.0.0.1:8000/weibo/callback"
+WB_AUTH_API = "https://api.weibo.com/oauth2/authorize"
+WB_ACCESS_TOKEN_API = 'https://api.weibo.com/oauth2/access_token'
+WB_USERS_SHOW = 'https://api.weibo.com/2/users/show.json'

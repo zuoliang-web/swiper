@@ -35,4 +35,8 @@ urlpatterns = [
     url(r'api/social/show_who_liked_me', social_apis.show_who_liked_me),
     url(r'api/social/friend_list', social_apis.friend_list),
     url(r'api/social/hot_rank', social_apis.hot_rank),
+
+    # 第三方登录相关接口
+    url(r'user/home', user_apis.home),
+    url(r'weibo/callback', user_apis.weibo_callback),
 ]
