@@ -1,5 +1,7 @@
 import datetime
 
+from django.db import transaction
+
 from common import keys
 from common import stat
 from swiper import conf
@@ -112,6 +114,7 @@ def dislike_someone(uid, sid):
     rds.zincrby('HotRank', conf.SWIPE_SCORE['dislike'], sid)
 
 
+@transaction.atomic
 def rewind_last_swipe(uid):
     '''
     反悔最后一次的滑动

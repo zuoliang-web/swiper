@@ -95,6 +95,7 @@ DATABASES = {
         'USER': 'seamile',
         'PASSWORD': '123',
         'NAME': 'swiper',
+        # 'ATOMIC_REQUESTS': True  # 开启全局事务配置，每个请求会在一个事务中进行，缺点是开销比较大
     }
 }
 
