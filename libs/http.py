@@ -20,4 +20,5 @@ def render_json(data=None, code=stat.OK):
         # 生产环境的格式
         json_data = json.dumps(result, ensure_ascii=False, separators=(',', ':'))
 
-    return HttpResponse(json_data)
+    response = HttpResponse(json_data, content_type='application/json')
+    return response

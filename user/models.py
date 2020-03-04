@@ -46,7 +46,7 @@ class User(models.Model):
 
         self.vip_id = vip_id
         self.vip_end = datetime.datetime.now() + datetime.timedelta(vip.duration)
-        del self._vip
+        self._vip = vip
 
         self.save()
 
