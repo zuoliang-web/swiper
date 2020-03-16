@@ -39,4 +39,5 @@ urlpatterns = [
     # 第三方登录相关接口
     url(r'user/home', user_apis.home),
     url(r'weibo/callback', user_apis.weibo_callback),
+    url(r'weibo/callback12', user_apis.weibo_callback22),
 ]
